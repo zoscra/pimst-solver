@@ -142,9 +142,9 @@ Automatically chooses best algorithm based on problem size:
 ```bibtex
 @misc{pimst2025,
   title={Gravity-Guided Heuristics for the Traveling Salesman Problem},
-  author={[Your Name]},
+  author={José Manuel Reguera Gutiérrez},
   year={2025},
-  url={https://github.com/[your-username]/pimst-solver},
+  url={https://github.com/zoscra/pimst-solver},
   note={arXiv preprint pending}
 }
 ```
@@ -173,7 +173,7 @@ PIMST is dual-licensed:
 
 ```bash
 # Clone the repository
-git clone https://github.com/[your-username]/pimst-solver.git
+git clone https://github.com/zoscra/pimst-solver.git
 cd pimst-solver
 
 # Install dependencies
