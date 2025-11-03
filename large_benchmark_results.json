@@ -1,0 +1,167 @@
+{
+  "random-200": {
+    "n": 200,
+    "solvers": {
+      "pimst_fast": {
+        "length": 11047.342213971177,
+        "time": 12.160542011260986,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 11047.342213971177,
+        "time": 1.3092901706695557,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 11047.342213971177,
+        "time": 2.6747591495513916,
+        "algorithm": "multi_start_10"
+      }
+    }
+  },
+  "random-500": {
+    "n": 500,
+    "solvers": {
+      "pimst_fast": {
+        "length": 17508.531426973634,
+        "time": 27.289392948150635,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 17508.531426973634,
+        "time": 47.02464818954468,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 17508.531426973634,
+        "time": 95.35682272911072,
+        "algorithm": "multi_start_10"
+      }
+    }
+  },
+  "random-1000": {
+    "n": 1000,
+    "solvers": {
+      "pimst_fast": {
+        "length": 24910.24121388225,
+        "time": 413.19226360321045,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 24910.24121388225,
+        "time": 724.5127580165863,
+        "algorithm": "multi_start_5"
+      }
+    }
+  },
+  "clustered-500": {
+    "n": 500,
+    "solvers": {
+      "pimst_fast": {
+        "length": 12144.210847902521,
+        "time": 27.00936722755432,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 12144.210847902521,
+        "time": 42.79392671585083,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 12144.210847902521,
+        "time": 86.19355416297913,
+        "algorithm": "multi_start_10"
+      }
+    }
+  },
+  "clustered-1000": {
+    "n": 1000,
+    "solvers": {
+      "pimst_fast": {
+        "length": 19860.085997860842,
+        "time": 314.26283860206604,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 19860.085997860842,
+        "time": 515.180882692337,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 19860.085997860842,
+        "time": 1032.7026414871216,
+        "algorithm": "multi_start_10"
+      }
+    }
+  },
+  "grid-400": {
+    "n": 400,
+    "solvers": {
+      "pimst_fast": {
+        "length": 20000.0,
+        "time": 2.066805124282837,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 20000.0,
+        "time": 3.4315803050994873,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 20000.0,
+        "time": 6.896484136581421,
+        "algorithm": "multi_start_10"
+      }
+    }
+  },
+  "grid-900": {
+    "n": 900,
+    "solvers": {
+      "pimst_fast": {
+        "length": 45000.0,
+        "time": 31.95478320121765,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 45000.0,
+        "time": 55.03388500213623,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 45000.0,
+        "time": 109.07570481300354,
+        "algorithm": "multi_start_10"
+      }
+    }
+  },
+  "circle-500": {
+    "n": 500,
+    "solvers": {
+      "pimst_fast": {
+        "length": 4737.255645659983,
+        "time": 35.642688512802124,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 4737.255645659983,
+        "time": 58.71625328063965,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 4737.255645659983,
+        "time": 117.77763533592224,
+        "algorithm": "multi_start_10"
+      }
+    }
+  },
+  "circle-1000": {
+    "n": 1000,
+    "solvers": {
+      "pimst_fast": {
+        "length": 4995.686183776754,
+        "time": 352.51452469825745,
+        "algorithm": "multi_start_3"
+      }
+    }
+  }
+}

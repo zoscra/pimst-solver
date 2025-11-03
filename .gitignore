@@ -80,3 +80,6 @@ Thumbs.db
 *.tour
 benchmark_results/
 experiments/
+
+# External solvers (LKH, etc)
+external_solvers/
