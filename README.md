@@ -454,3 +454,35 @@ If you find PIMST useful, please consider giving it a star! ⭐
 **Built with ❤️ and physics** 🌟
 
 **PIMST - When speed meets quality** ⚡🎯
+
+---
+
+## 🛠️ Herramientas de Desarrollo
+
+Este proyecto incluye un conjunto completo de herramientas para desarrollo, testing y benchmarking:
+
+- 🧪 **quick_test.sh** - Tests rápidos pre-commit
+- 🏃 **benchmark_suite.sh** - Suite interactiva de benchmarks
+- 📊 **compare_with_market.py** - Comparación completa con otros solvers
+- 🔍 **compare_versions.py** - Comparador de versiones
+- 📈 **performance_tracker.py** - Rastreador de rendimiento histórico
+- 📦 **version_manager.py** - Gestor de versiones
+
+Ver [DEV_TOOLS_README.md](DEV_TOOLS_README.md) para documentación completa.
+
+### Quick Start para Desarrolladores
+```bash
+# Tests rápidos
+./quick_test.sh
+
+# Benchmark completo
+./benchmark_suite.sh
+
+# Comparar con versión anterior
+python compare_versions.py v0.21.0_results.json v0.22.0_results.json
+
+# Rastrear rendimiento
+python performance_tracker.py --add benchmark_results.json
+python performance_tracker.py --plot
+```
+

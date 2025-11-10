@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Comprehensive benchmark: PIMST vs. OR-Tools (Google)
 """
@@ -353,7 +354,7 @@ def analyze_results(results):
                 'algorithm': solver_data['algorithm']
             }
     
-    with open('benchmark_results.json', 'w') as f:
+    with open('benchmark_results.json', 'w', encoding='utf-8') as f:
         json.dump(results_json, f, indent=2)
     
     print(f"\n✅ Results saved to: benchmark_results.json")
@@ -432,7 +433,7 @@ def generate_markdown_summary(results):
     
     summary = "\n".join(md)
     
-    with open('BENCHMARK_SUMMARY.md', 'w') as f:
+    with open('BENCHMARK_SUMMARY.md', 'w', encoding='utf-8') as f:
         f.write(summary)
     
     print(f"\n✅ Markdown summary saved to: BENCHMARK_SUMMARY.md")

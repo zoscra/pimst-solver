@@ -83,3 +83,21 @@ experiments/
 
 # External solvers (LKH, etc)
 external_solvers/
+
+# Performance tracking
+performance_history.db
+performance_history.png
+performance_by_size.png
+
+# Benchmark results (mantener solo archivos importantes)
+benchmark_results/session_*/
+comparison_results/
+
+# Experiments
+experiments/
+
+# Temporary files
+/tmp/pimst_comparison/
+*.pyc
+__pycache__/
+

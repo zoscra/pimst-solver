@@ -4,22 +4,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 465.0384155596449,
-        "time": 1.5021371841430664,
+        "time": 1.502279281616211,
         "algorithm": "fast_nn"
       },
       "pimst_balanced": {
         "length": 465.0384155596449,
-        "time": 5.221366882324219e-05,
+        "time": 3.838539123535156e-05,
         "algorithm": "fast_nn"
       },
       "pimst_optimal": {
         "length": 465.0384155596449,
-        "time": 2.4080276489257812e-05,
+        "time": 3.838539123535156e-05,
         "algorithm": "fast_nn"
       },
       "ortools": {
         "length": 386.42968947651343,
-        "time": 9.999486684799194,
+        "time": 10.00023078918457,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -29,22 +29,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 595.2685632021771,
-        "time": 6.29425048828125e-05,
+        "time": 6.389617919921875e-05,
         "algorithm": "nearest_neighbor"
       },
       "pimst_balanced": {
         "length": 481.7172822035148,
-        "time": 8.70141315460205,
+        "time": 9.524504899978638,
         "algorithm": "lin_kernighan_lite"
       },
       "pimst_optimal": {
         "length": 481.7172822035148,
-        "time": 0.0003955364227294922,
+        "time": 0.0003991127014160156,
         "algorithm": "lin_kernighan_lite"
       },
       "ortools": {
         "length": 479.07435378303217,
-        "time": 10.000756025314331,
+        "time": 10.00075650215149,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -54,22 +54,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 681.7815021839986,
-        "time": 7.319450378417969e-05,
+        "time": 7.43865966796875e-05,
         "algorithm": "nearest_neighbor"
       },
       "pimst_balanced": {
         "length": 596.659721509736,
-        "time": 0.0017616748809814453,
+        "time": 0.0014183521270751953,
         "algorithm": "lin_kernighan_lite"
       },
       "pimst_optimal": {
         "length": 596.659721509736,
-        "time": 0.0014293193817138672,
+        "time": 0.0018641948699951172,
         "algorithm": "lin_kernighan_lite"
       },
       "ortools": {
         "length": 568.6712436186867,
-        "time": 10.00097131729126,
+        "time": 10.000057220458984,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -79,22 +79,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 746.257269725399,
-        "time": 0.0003597736358642578,
+        "time": 0.0003733634948730469,
         "algorithm": "gravity_guided"
       },
       "pimst_balanced": {
         "length": 710.9418164233763,
-        "time": 0.004927635192871094,
+        "time": 0.006594181060791016,
         "algorithm": "lin_kernighan_lite"
       },
       "pimst_optimal": {
         "length": 710.9418164233763,
-        "time": 0.005659341812133789,
+        "time": 0.006327152252197266,
         "algorithm": "lin_kernighan_lite"
       },
       "ortools": {
         "length": 686.0030486269035,
-        "time": 30.000405311584473,
+        "time": 30.0035343170166,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -104,22 +104,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 823.8164281598083,
-        "time": 0.2627270221710205,
+        "time": 0.43726563453674316,
         "algorithm": "multi_start_3"
       },
       "pimst_balanced": {
         "length": 823.8164281598083,
-        "time": 0.08704590797424316,
+        "time": 0.1204841136932373,
         "algorithm": "multi_start_5"
       },
       "pimst_optimal": {
         "length": 823.8164281598083,
-        "time": 0.1709151268005371,
+        "time": 0.2895684242248535,
         "algorithm": "multi_start_10"
       },
       "ortools": {
-        "length": 760.7021321752907,
-        "time": 30.0003821849823,
+        "length": 769.3603720967825,
+        "time": 30.000338554382324,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -129,22 +129,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 436.92228213858357,
-        "time": 5.507469177246094e-05,
+        "time": 0.00010418891906738281,
         "algorithm": "nearest_neighbor"
       },
       "pimst_balanced": {
         "length": 384.7772990513584,
-        "time": 0.003125429153442383,
+        "time": 0.0039751529693603516,
         "algorithm": "lin_kernighan_lite"
       },
       "pimst_optimal": {
         "length": 384.7772990513584,
-        "time": 0.0031251907348632812,
+        "time": 0.0039577484130859375,
         "algorithm": "lin_kernighan_lite"
       },
       "ortools": {
         "length": 338.3112769533749,
-        "time": 10.000898838043213,
+        "time": 10.000332117080688,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -154,22 +154,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 551.326083034359,
-        "time": 0.06646108627319336,
+        "time": 0.08130216598510742,
         "algorithm": "multi_start_3"
       },
       "pimst_balanced": {
         "length": 551.326083034359,
-        "time": 0.11392879486083984,
+        "time": 0.13381147384643555,
         "algorithm": "multi_start_5"
       },
       "pimst_optimal": {
         "length": 551.326083034359,
-        "time": 0.2248377799987793,
+        "time": 0.28607702255249023,
         "algorithm": "multi_start_10"
       },
       "ortools": {
         "length": 545.0325096552291,
-        "time": 30.000476837158203,
+        "time": 30.0006206035614,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -179,22 +179,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 296.5685424949238,
-        "time": 6.532669067382812e-05,
+        "time": 7.104873657226562e-05,
         "algorithm": "fast_nn"
       },
       "pimst_balanced": {
         "length": 296.5685424949238,
-        "time": 2.7179718017578125e-05,
+        "time": 2.8848648071289062e-05,
         "algorithm": "fast_nn"
       },
       "pimst_optimal": {
         "length": 296.5685424949238,
-        "time": 6.031990051269531e-05,
+        "time": 3.9577484130859375e-05,
         "algorithm": "fast_nn"
       },
       "ortools": {
         "length": 254.14213562373095,
-        "time": 10.000754356384277,
+        "time": 10.000022888183594,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -204,22 +204,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 1000.0,
-        "time": 0.03997993469238281,
+        "time": 0.04073500633239746,
         "algorithm": "multi_start_3"
       },
       "pimst_balanced": {
         "length": 1000.0,
-        "time": 0.0527956485748291,
+        "time": 0.06211543083190918,
         "algorithm": "multi_start_5"
       },
       "pimst_optimal": {
         "length": 1000.0,
-        "time": 0.11275076866149902,
+        "time": 0.10770940780639648,
         "algorithm": "multi_start_10"
       },
       "ortools": {
         "length": 1000.0,
-        "time": 30.001018047332764,
+        "time": 30.000709056854248,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -229,22 +229,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 251.16207811725354,
-        "time": 0.00011134147644042969,
+        "time": 6.651878356933594e-05,
         "algorithm": "nearest_neighbor"
       },
       "pimst_balanced": {
         "length": 251.1620781172535,
-        "time": 0.0019996166229248047,
+        "time": 0.0021467208862304688,
         "algorithm": "lin_kernighan_lite"
       },
       "pimst_optimal": {
         "length": 251.1620781172535,
-        "time": 0.001973390579223633,
+        "time": 0.0019817352294921875,
         "algorithm": "lin_kernighan_lite"
       },
       "ortools": {
         "length": 251.1620781172535,
-        "time": 10.000163555145264,
+        "time": 10.000989437103271,
         "algorithm": "OR-Tools GLS"
       }
     }
@@ -254,22 +254,22 @@
     "solvers": {
       "pimst_fast": {
         "length": 261.32759596940554,
-        "time": 0.338029146194458,
+        "time": 0.22432875633239746,
         "algorithm": "multi_start_3"
       },
       "pimst_balanced": {
         "length": 261.32759596940554,
-        "time": 0.39118027687072754,
+        "time": 0.3395357131958008,
         "algorithm": "multi_start_5"
       },
       "pimst_optimal": {
         "length": 261.32759596940554,
-        "time": 0.7079181671142578,
+        "time": 0.6612949371337891,
         "algorithm": "multi_start_10"
       },
       "ortools": {
         "length": 251.28607262502643,
-        "time": 30.002746105194092,
+        "time": 30.002748727798462,
         "algorithm": "OR-Tools GLS"
       }
     }

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Large-scale benchmark: PIMST on N=500 and N=1000 instances
 """
@@ -286,7 +287,7 @@ def analyze_large_results(results):
                 'algorithm': solver_data['algorithm']
             }
     
-    with open('large_benchmark_results.json', 'w') as f:
+    with open('large_benchmark_results.json', 'w', encoding='utf-8') as f:
         json.dump(results_json, f, indent=2)
     
     print(f"\n✅ Results saved to: large_benchmark_results.json")
