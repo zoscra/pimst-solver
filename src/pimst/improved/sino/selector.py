@@ -1,5 +1,5 @@
 """
-SiNo System - Smart Selector (OPTIMIZED)
+SiNo System - Smart Selector (OPTIMIZED FOR SPEED)
 """
 
 from typing import Tuple, List, Optional
@@ -53,15 +53,15 @@ class SmartSelector:
         decision = self.decision_engine.decide(confidence, n)
         
         if decision == DecisionType.NO:
-            tour, cost = self._solve_with_quality(coordinates, distances, 'fast', n)
+            tour, cost = self._solve_with_quality(coordinates, distances, 'fast')
             self.stats['fast_path'] += 1
             return tour, cost, {'decision': 'NO', 'confidence': confidence, 'graph_type': graph_type}
         elif decision == DecisionType.SINO:
-            tour, cost = self._solve_with_quality(coordinates, distances, 'balanced', n)
+            tour, cost = self._solve_with_quality(coordinates, distances, 'balanced')
             self.stats['sino_path'] += 1
             return tour, cost, {'decision': 'SINO', 'confidence': confidence, 'graph_type': graph_type}
         else:
-            tour, cost = self._solve_with_quality(coordinates, distances, 'optimal', n)
+            tour, cost = self._solve_with_quality(coordinates, distances, 'optimal')
             self.stats['comprehensive_path'] += 1
             return tour, cost, {'decision': 'SI', 'confidence': confidence, 'graph_type': graph_type}
     
@@ -113,27 +113,16 @@ class SmartSelector:
         
         return tour, cost
     
-    def _solve_with_quality(self, coords: np.ndarray, dist_matrix: np.ndarray, quality: str, n: int) -> Tuple[List[int], float]:
-        """Solve using appropriate strategy with INCREASED starts for large problems."""
+    def _solve_with_quality(self, coords: np.ndarray, dist_matrix: np.ndarray, quality: str) -> Tuple[List[int], float]:
+        """
+        USAR CONFIGURACIÓN ORIGINAL DE solve_tsp_smart.
         
-        # CRÍTICO: Para n>=85, usar MUCHOS más starts
-        if n >= 85:
-            from pimst.algorithms import multi_start_solver
-            
-            # Ajustar n_starts según tamaño y quality
-            if quality == 'fast':
-                n_starts = max(5, 50 // (n // 100 + 1))  # 5-10 starts
-            elif quality == 'balanced':
-                n_starts = max(15, 100 // (n // 100 + 1))  # 15-20 starts
-            else:  # optimal
-                n_starts = max(25, 150 // (n // 100 + 1))  # 25-30 starts
-            
-            tour = multi_start_solver(coords, dist_matrix, n_starts=n_starts)
-            cost = sum(dist_matrix[tour[i]][tour[(i+1)%len(tour)]] for i in range(len(tour)))
-            return tour.tolist(), cost
-        
-        # Para problemas más pequeños, usar solve_tsp_smart normal
+        NO sobreescribir con muchos starts - dejar que solve_tsp_smart
+        use su lógica original optimizada para velocidad.
+        """
         from pimst.algorithms import solve_tsp_smart
+        
+        # Simplemente llamar a solve_tsp_smart con su configuración ORIGINAL
         tour = solve_tsp_smart(coords, dist_matrix, quality=quality)
         cost = sum(dist_matrix[tour[i]][tour[(i+1)%len(tour)]] for i in range(len(tour)))
         return tour.tolist(), cost
