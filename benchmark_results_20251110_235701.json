@@ -1,0 +1,131 @@
+{
+  "timestamp": "20251110_235701",
+  "results": [
+    {
+      "instance": "circle-20",
+      "type": "circle",
+      "n": 20,
+      "sino": {
+        "cost": 6.257378601609234,
+        "time": 0.00039577484130859375,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "circle-50",
+      "type": "circle",
+      "n": 50,
+      "sino": {
+        "cost": 6.27905195293134,
+        "time": 0.0009136199951171875,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "circle-100",
+      "type": "circle",
+      "n": 100,
+      "sino": {
+        "cost": 6.282151815625664,
+        "time": 0.0011005401611328125,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "random-20",
+      "type": "random",
+      "n": 20,
+      "sino": {
+        "cost": 419.4904698877323,
+        "time": 0.006604194641113281,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "random-50",
+      "type": "random",
+      "n": 50,
+      "sino": {
+        "cost": 598.3018135999484,
+        "time": 0.25223827362060547,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "random-100",
+      "type": "random",
+      "n": 100,
+      "sino": {
+        "cost": 841.5780365364507,
+        "time": 2.416548252105713,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "clustered-20",
+      "type": "clustered",
+      "n": 20,
+      "sino": {
+        "cost": 278.6417411386302,
+        "time": 0.006796836853027344,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "clustered-50",
+      "type": "clustered",
+      "n": 50,
+      "sino": {
+        "cost": 345.96497477077133,
+        "time": 0.3219728469848633,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    },
+    {
+      "instance": "clustered-100",
+      "type": "clustered",
+      "n": 100,
+      "sino": {
+        "cost": 505.6809795560651,
+        "time": 2.751115322113037,
+        "success": true
+      },
+      "ortools": {
+        "success": false,
+        "error": "<built-in function RoutingModel_SolveWithParameters> returned a result with an exception set"
+      }
+    }
+  ]
+}

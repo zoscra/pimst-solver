@@ -1,8 +1,6 @@
 """
 SiNo System - Main API
 ======================
-
-Simple, production-ready API for the SiNo selective solver system.
 """
 
 from typing import List, Tuple, Optional, Dict
@@ -14,29 +12,9 @@ from .confidence import ConfidenceAnalyzer
 
 
 class SiNoSolver:
-    """
-    Main API for the SiNo (Selective Intelligent Solver) system.
-    
-    This solver uses a probabilistic decision engine to determine:
-    - SI (Yes): Use comprehensive solver
-    - SINO (Maybe): Use exploration with checkpoints
-    - NO (No): Use fast heuristic
-    
-    Example:
-        >>> from pimst.improved.sino import SiNoSolver
-        >>> solver = SiNoSolver()
-        >>> distances = np.array([[0, 1, 2], [1, 0, 3], [2, 3, 0]])
-        >>> result = solver.solve(distances)
-        >>> print(f"Tour: {result.tour}, Cost: {result.cost}")
-    """
+    """Main API for the SiNo system using PIMST's best algorithms."""
     
     def __init__(self, config: Optional[SolverConfig] = None):
-        """
-        Initialize the SiNo solver.
-        
-        Args:
-            config: Optional configuration. If None, uses defaults.
-        """
         self.config = config or SolverConfig()
         self.decision_engine = DecisionEngine(self.config)
         self.exploration_engine = ExplorationEngine(self.config)
@@ -47,31 +25,21 @@ class SiNoSolver:
         distances: np.ndarray,
         coordinates: Optional[np.ndarray] = None
     ) -> SiNoResult:
-        """
-        Solve TSP using the SiNo system.
-        
-        Args:
-            distances: Distance matrix (n x n)
-            coordinates: Optional coordinates for visualization
-            
-        Returns:
-            SiNoResult with tour, cost, and decision metadata
-        """
+        """Solve TSP using the SiNo system with PIMST algorithms."""
         n = len(distances)
         
-        # Step 1: Analyze confidence
-        confidence = self.confidence_analyzer.analyze(distances, coordinates)
+        if coordinates is None:
+            coordinates = self._derive_coordinates(distances)
         
-        # Step 2: Make decision
+        confidence = self.confidence_analyzer.analyze(distances, coordinates)
         decision = self.decision_engine.decide(confidence, n)
         
-        # Step 3: Execute based on decision
         if decision == DecisionType.SI:
-            tour, cost = self._solve_comprehensive(distances)
+            tour, cost = self._solve_with_quality(coordinates, distances, 'optimal')
         elif decision == DecisionType.SINO:
-            tour, cost = self._solve_with_exploration(distances, confidence)
-        else:  # DecisionType.NO
-            tour, cost = self._solve_fast(distances)
+            tour, cost = self._solve_with_quality(coordinates, distances, 'balanced')
+        else:
+            tour, cost = self._solve_with_quality(coordinates, distances, 'fast')
         
         return SiNoResult(
             tour=tour,
@@ -81,81 +49,33 @@ class SiNoSolver:
             n_nodes=n
         )
     
-    def _solve_comprehensive(
-        self, 
-        distances: np.ndarray
-    ) -> Tuple[List[int], float]:
-        """
-        Use comprehensive solver (for high-value instances).
-        
-        This is where you'd integrate your best algorithm (v14.4, LKH, etc.)
-        """
-        from pimst.algorithms import comprehensive_solver
-        return comprehensive_solver(distances)
+    def _derive_coordinates(self, distances: np.ndarray) -> np.ndarray:
+        """Derive approximate coordinates from distance matrix."""
+        try:
+            from sklearn.manifold import MDS
+            mds = MDS(n_components=2, dissimilarity='precomputed', random_state=42)
+            coords = mds.fit_transform(distances)
+            return coords
+        except:
+            n = len(distances)
+            np.random.seed(42)
+            return np.random.rand(n, 2) * 100
     
-    def _solve_with_exploration(
-        self, 
-        distances: np.ndarray,
-        confidence: float
-    ) -> Tuple[List[int], float]:
-        """
-        Use exploration with checkpoints (for uncertain cases).
-        """
-        return self.exploration_engine.explore(distances, confidence)
+    def _solve_with_quality(self, coords: np.ndarray, dist_matrix: np.ndarray, quality: str) -> Tuple[List[int], float]:
+        """Solve using solve_tsp_smart with specified quality."""
+        from pimst.algorithms import solve_tsp_smart
+        tour = solve_tsp_smart(coords, dist_matrix, quality=quality)
+        cost = sum(dist_matrix[tour[i]][tour[(i+1) % len(tour)]] for i in range(len(tour)))
+        return tour.tolist(), cost
     
-    def _solve_fast(
-        self, 
-        distances: np.ndarray
-    ) -> Tuple[List[int], float]:
-        """
-        Use fast heuristic (for easy instances).
-        """
-        from pimst.algorithms import fast_heuristic
-        return fast_heuristic(distances)
-    
-    def batch_solve(
-        self, 
-        instances: List[np.ndarray]
-    ) -> List[SiNoResult]:
-        """
-        Solve multiple TSP instances.
-        
-        Args:
-            instances: List of distance matrices
-            
-        Returns:
-            List of SiNoResult objects
-        """
+    def batch_solve(self, instances: List[np.ndarray]) -> List[SiNoResult]:
         return [self.solve(dist) for dist in instances]
     
     def get_statistics(self) -> Dict:
-        """
-        Get solver statistics.
-        
-        Returns:
-            Dictionary with decision counts and performance metrics
-        """
         return self.decision_engine.get_stats()
 
 
-def solve_tsp(
-    distances: np.ndarray,
-    config: Optional[SolverConfig] = None
-) -> SiNoResult:
-    """
-    Convenience function to solve a single TSP instance.
-    
-    Args:
-        distances: Distance matrix
-        config: Optional solver configuration
-        
-    Returns:
-        SiNoResult with tour and metadata
-        
-    Example:
-        >>> distances = np.array([[0, 1, 2], [1, 0, 3], [2, 3, 0]])
-        >>> result = solve_tsp(distances)
-        >>> print(result.tour)
-    """
+def solve_tsp(distances: np.ndarray, config: Optional[SolverConfig] = None) -> SiNoResult:
+    """Convenience function to solve a single TSP instance."""
     solver = SiNoSolver(config)
     return solver.solve(distances)

@@ -1,0 +1,176 @@
+{
+  "timestamp": "20251111_000308",
+  "results": [
+    {
+      "instance": "circle-20",
+      "type": "circle",
+      "n": 20,
+      "sino": {
+        "cost": 6.257378601609234,
+        "time": 0.00034356117248535156,
+        "success": true
+      },
+      "ortools": {
+        "cost": 6.257378601609234,
+        "time": 30.000884294509888,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 0.0,
+        "speedup": 87323.26786953505
+      }
+    },
+    {
+      "instance": "circle-50",
+      "type": "circle",
+      "n": 50,
+      "sino": {
+        "cost": 6.27905195293134,
+        "time": 0.00042700767517089844,
+        "success": true
+      },
+      "ortools": {
+        "cost": 6.279051952931342,
+        "time": 30.00014328956604,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": -2.8290207705177016e-14,
+        "speedup": 70256.68397543272
+      }
+    },
+    {
+      "instance": "circle-100",
+      "type": "circle",
+      "n": 100,
+      "sino": {
+        "cost": 6.282151815625664,
+        "time": 0.0005445480346679688,
+        "success": true
+      },
+      "ortools": {
+        "cost": 6.282151815625658,
+        "time": 30.000875234603882,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 8.482874458630085e-14,
+        "speedup": 55093.16593695271
+      }
+    },
+    {
+      "instance": "random-20",
+      "type": "random",
+      "n": 20,
+      "sino": {
+        "cost": 419.4904698877323,
+        "time": 0.0036466121673583984,
+        "success": true
+      },
+      "ortools": {
+        "cost": 415.2908829880399,
+        "time": 30.00104069709778,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 1.0112398493981132,
+        "speedup": 8227.099378881987
+      }
+    },
+    {
+      "instance": "random-50",
+      "type": "random",
+      "n": 50,
+      "sino": {
+        "cost": 598.3018135999484,
+        "time": 0.19286441802978516,
+        "success": true
+      },
+      "ortools": {
+        "cost": 572.1909402570027,
+        "time": 30.00045132637024,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 4.563314709460082,
+        "speedup": 155.55202785895477
+      }
+    },
+    {
+      "instance": "random-100",
+      "type": "random",
+      "n": 100,
+      "sino": {
+        "cost": 841.5780365364507,
+        "time": 2.365478277206421,
+        "success": true
+      },
+      "ortools": {
+        "cost": 774.9578842212155,
+        "time": 30.000624179840088,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 8.596615851219354,
+        "speedup": 12.682688515436372
+      }
+    },
+    {
+      "instance": "clustered-20",
+      "type": "clustered",
+      "n": 20,
+      "sino": {
+        "cost": 278.6417411386302,
+        "time": 0.00812983512878418,
+        "success": true
+      },
+      "ortools": {
+        "cost": 278.6417411386302,
+        "time": 30.001346111297607,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 0.0,
+        "speedup": 3690.2773101850494
+      }
+    },
+    {
+      "instance": "clustered-50",
+      "type": "clustered",
+      "n": 50,
+      "sino": {
+        "cost": 345.96497477077133,
+        "time": 0.2648501396179199,
+        "success": true
+      },
+      "ortools": {
+        "cost": 338.11869769983997,
+        "time": 30.000137329101562,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 2.3205688192661813,
+        "speedup": 113.27212200975458
+      }
+    },
+    {
+      "instance": "clustered-100",
+      "type": "clustered",
+      "n": 100,
+      "sino": {
+        "cost": 505.6809795560651,
+        "time": 2.8173105716705322,
+        "success": true
+      },
+      "ortools": {
+        "cost": 460.07709916816174,
+        "time": 30.000843048095703,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 9.91222568355544,
+        "speedup": 10.648752519430834
+      }
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "timestamp": "20251111_120552",
+  "results": [
+    {
+      "instance": "circle-20",
+      "type": "circle",
+      "n": 20,
+      "sino": {
+        "cost": 6.257378601609234,
+        "time": 0.00048732757568359375,
+        "success": true
+      },
+      "ortools": {
+        "cost": 6.257378601609234,
+        "time": 29.999694108963013,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 0.0,
+        "speedup": 61559.607142857145
+      }
+    },
+    {
+      "instance": "circle-50",
+      "type": "circle",
+      "n": 50,
+      "sino": {
+        "cost": 6.27905195293134,
+        "time": 0.0005755424499511719,
+        "success": true
+      },
+      "ortools": {
+        "cost": 6.279051952931342,
+        "time": 30.000358819961548,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": -2.8290207705177016e-14,
+        "speedup": 52125.362468931235
+      }
+    },
+    {
+      "instance": "circle-100",
+      "type": "circle",
+      "n": 100,
+      "sino": {
+        "cost": 6.282151815625664,
+        "time": 0.0007796287536621094,
+        "success": true
+      },
+      "ortools": {
+        "cost": 6.282151815625658,
+        "time": 30.000794649124146,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 8.482874458630085e-14,
+        "speedup": 38480.87247706422
+      }
+    },
+    {
+      "instance": "random-20",
+      "type": "random",
+      "n": 20,
+      "sino": {
+        "cost": 466.1619790181146,
+        "time": 1.0606575012207031,
+        "success": true
+      },
+      "ortools": {
+        "cost": 415.2908829880399,
+        "time": 30.00199604034424,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 12.249509467690322,
+        "speedup": 28.28622435217321
+      }
+    },
+    {
+      "instance": "random-50",
+      "type": "random",
+      "n": 50,
+      "sino": {
+        "cost": 1.0,
+        "time": 16.2133846282959,
+        "success": true
+      },
+      "ortools": {
+        "cost": 572.1909402570027,
+        "time": 30.000147819519043,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": -99.82523316437852,
+        "speedup": 1.8503322105343896
+      }
+    },
+    {
+      "instance": "random-100",
+      "type": "random",
+      "n": 100,
+      "sino": {
+        "cost": 1.0,
+        "time": 0.03233790397644043,
+        "success": true
+      },
+      "ortools": {
+        "cost": 774.9578842212155,
+        "time": 30.005609273910522,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": -99.87096072956211,
+        "speedup": 927.8773694105504
+      }
+    },
+    {
+      "instance": "clustered-20",
+      "type": "clustered",
+      "n": 20,
+      "sino": {
+        "cost": 301.90958936056865,
+        "time": 0.0009405612945556641,
+        "success": true
+      },
+      "ortools": {
+        "cost": 278.6417411386302,
+        "time": 30.00065803527832,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": 8.350453211660842,
+        "speedup": 31896.54752851711
+      }
+    },
+    {
+      "instance": "clustered-50",
+      "type": "clustered",
+      "n": 50,
+      "sino": {
+        "cost": 1.0,
+        "time": 0.029569149017333984,
+        "success": true
+      },
+      "ortools": {
+        "cost": 338.11869769983997,
+        "time": 30.00033187866211,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": -99.70424587377072,
+        "speedup": 1014.5821870313332
+      }
+    },
+    {
+      "instance": "clustered-100",
+      "type": "clustered",
+      "n": 100,
+      "sino": {
+        "cost": 1.0,
+        "time": 0.034848690032958984,
+        "success": true
+      },
+      "ortools": {
+        "cost": 460.07709916816174,
+        "time": 30.000635623931885,
+        "success": true
+      },
+      "comparison": {
+        "gap_percent": -99.78264512582608,
+        "speedup": 860.8827360672112
+      }
+    }
+  ]
+}
