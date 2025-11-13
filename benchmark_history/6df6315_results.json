@@ -1,0 +1,277 @@
+{
+  "random-20": {
+    "n": 20,
+    "solvers": {
+      "pimst_fast": {
+        "length": 465.0384155596449,
+        "time": 1.502279281616211,
+        "algorithm": "fast_nn"
+      },
+      "pimst_balanced": {
+        "length": 465.0384155596449,
+        "time": 3.838539123535156e-05,
+        "algorithm": "fast_nn"
+      },
+      "pimst_optimal": {
+        "length": 465.0384155596449,
+        "time": 3.838539123535156e-05,
+        "algorithm": "fast_nn"
+      },
+      "ortools": {
+        "length": 386.42968947651343,
+        "time": 10.00023078918457,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "random-30": {
+    "n": 30,
+    "solvers": {
+      "pimst_fast": {
+        "length": 595.2685632021771,
+        "time": 6.389617919921875e-05,
+        "algorithm": "nearest_neighbor"
+      },
+      "pimst_balanced": {
+        "length": 481.7172822035148,
+        "time": 9.524504899978638,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "pimst_optimal": {
+        "length": 481.7172822035148,
+        "time": 0.0003991127014160156,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "ortools": {
+        "length": 479.07435378303217,
+        "time": 10.00075650215149,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "random-50": {
+    "n": 50,
+    "solvers": {
+      "pimst_fast": {
+        "length": 681.7815021839986,
+        "time": 7.43865966796875e-05,
+        "algorithm": "nearest_neighbor"
+      },
+      "pimst_balanced": {
+        "length": 596.659721509736,
+        "time": 0.0014183521270751953,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "pimst_optimal": {
+        "length": 596.659721509736,
+        "time": 0.0018641948699951172,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "ortools": {
+        "length": 568.6712436186867,
+        "time": 10.000057220458984,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "random-70": {
+    "n": 70,
+    "solvers": {
+      "pimst_fast": {
+        "length": 746.257269725399,
+        "time": 0.0003733634948730469,
+        "algorithm": "gravity_guided"
+      },
+      "pimst_balanced": {
+        "length": 710.9418164233763,
+        "time": 0.006594181060791016,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "pimst_optimal": {
+        "length": 710.9418164233763,
+        "time": 0.006327152252197266,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "ortools": {
+        "length": 686.0030486269035,
+        "time": 30.0035343170166,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "random-100": {
+    "n": 100,
+    "solvers": {
+      "pimst_fast": {
+        "length": 823.8164281598083,
+        "time": 0.43726563453674316,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 823.8164281598083,
+        "time": 0.1204841136932373,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 823.8164281598083,
+        "time": 0.2895684242248535,
+        "algorithm": "multi_start_10"
+      },
+      "ortools": {
+        "length": 769.3603720967825,
+        "time": 30.000338554382324,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "clustered-50": {
+    "n": 50,
+    "solvers": {
+      "pimst_fast": {
+        "length": 436.92228213858357,
+        "time": 0.00010418891906738281,
+        "algorithm": "nearest_neighbor"
+      },
+      "pimst_balanced": {
+        "length": 384.7772990513584,
+        "time": 0.0039751529693603516,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "pimst_optimal": {
+        "length": 384.7772990513584,
+        "time": 0.0039577484130859375,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "ortools": {
+        "length": 338.3112769533749,
+        "time": 10.000332117080688,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "clustered-100": {
+    "n": 100,
+    "solvers": {
+      "pimst_fast": {
+        "length": 551.326083034359,
+        "time": 0.08130216598510742,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 551.326083034359,
+        "time": 0.13381147384643555,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 551.326083034359,
+        "time": 0.28607702255249023,
+        "algorithm": "multi_start_10"
+      },
+      "ortools": {
+        "length": 545.0325096552291,
+        "time": 30.0006206035614,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "grid-25": {
+    "n": 25,
+    "solvers": {
+      "pimst_fast": {
+        "length": 296.5685424949238,
+        "time": 7.104873657226562e-05,
+        "algorithm": "fast_nn"
+      },
+      "pimst_balanced": {
+        "length": 296.5685424949238,
+        "time": 2.8848648071289062e-05,
+        "algorithm": "fast_nn"
+      },
+      "pimst_optimal": {
+        "length": 296.5685424949238,
+        "time": 3.9577484130859375e-05,
+        "algorithm": "fast_nn"
+      },
+      "ortools": {
+        "length": 254.14213562373095,
+        "time": 10.000022888183594,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "grid-100": {
+    "n": 100,
+    "solvers": {
+      "pimst_fast": {
+        "length": 1000.0,
+        "time": 0.04073500633239746,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 1000.0,
+        "time": 0.06211543083190918,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 1000.0,
+        "time": 0.10770940780639648,
+        "algorithm": "multi_start_10"
+      },
+      "ortools": {
+        "length": 1000.0,
+        "time": 30.000709056854248,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "circle-50": {
+    "n": 50,
+    "solvers": {
+      "pimst_fast": {
+        "length": 251.16207811725354,
+        "time": 6.651878356933594e-05,
+        "algorithm": "nearest_neighbor"
+      },
+      "pimst_balanced": {
+        "length": 251.1620781172535,
+        "time": 0.0021467208862304688,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "pimst_optimal": {
+        "length": 251.1620781172535,
+        "time": 0.0019817352294921875,
+        "algorithm": "lin_kernighan_lite"
+      },
+      "ortools": {
+        "length": 251.1620781172535,
+        "time": 10.000989437103271,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  },
+  "circle-100": {
+    "n": 100,
+    "solvers": {
+      "pimst_fast": {
+        "length": 261.32759596940554,
+        "time": 0.22432875633239746,
+        "algorithm": "multi_start_3"
+      },
+      "pimst_balanced": {
+        "length": 261.32759596940554,
+        "time": 0.3395357131958008,
+        "algorithm": "multi_start_5"
+      },
+      "pimst_optimal": {
+        "length": 261.32759596940554,
+        "time": 0.6612949371337891,
+        "algorithm": "multi_start_10"
+      },
+      "ortools": {
+        "length": 251.28607262502643,
+        "time": 30.002748727798462,
+        "algorithm": "OR-Tools GLS"
+      }
+    }
+  }
+}
