@@ -1,0 +1,110 @@
+{
+  "eil51": {
+    "n": 51,
+    "optimal": 426,
+    "cost": 443.9760007780675,
+    "gap_pct": 4.219718492504105,
+    "time": 11.182841539382935,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "berlin52": {
+    "n": 52,
+    "optimal": 7542,
+    "cost": 8107.545207926859,
+    "gap_pct": 7.498610553259863,
+    "time": 0.16732430458068848,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "st70": {
+    "n": 70,
+    "optimal": 675,
+    "cost": 738.4823308293726,
+    "gap_pct": 9.404789752499642,
+    "time": 0.2646632194519043,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "eil76": {
+    "n": 76,
+    "optimal": 538,
+    "cost": 570.9344061918935,
+    "gap_pct": 6.121636838641907,
+    "time": 0.19732022285461426,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "kroA100": {
+    "n": 100,
+    "optimal": 21282,
+    "cost": 23171.463112646325,
+    "gap_pct": 8.87822156116119,
+    "time": 0.27058863639831543,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "kroB100": {
+    "n": 100,
+    "optimal": 22141,
+    "cost": 22448.715089428835,
+    "gap_pct": 1.3897976127041922,
+    "time": 0.28694868087768555,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "kroC100": {
+    "n": 100,
+    "optimal": 20749,
+    "cost": 22093.606106683044,
+    "gap_pct": 6.4803417354236075,
+    "time": 0.394183874130249,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "kroD100": {
+    "n": 100,
+    "optimal": 21294,
+    "cost": 22378.16202068202,
+    "gap_pct": 5.091396734676524,
+    "time": 0.32572245597839355,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  },
+  "kroE100": {
+    "n": 100,
+    "optimal": 22068,
+    "cost": 22918.011984940997,
+    "gap_pct": 3.8517853223717444,
+    "time": 0.33887147903442383,
+    "strategies": [
+      "thompson_sampling",
+      "parallel_ensemble",
+      "final_refinement"
+    ]
+  }
+}

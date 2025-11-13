@@ -28,9 +28,15 @@ class SuperSolver:
     4. Retornar mejor solucion encontrada
     """
     
-    def __init__(self, n_cores: int = None):
+    def __init__(self, n_cores: int = None, mode: str = 'balanced'):
+        """
+        Args:
+            n_cores: Number of CPU cores to use
+            mode: 'fast' (speed priority), 'balanced' (default), 'academic' (quality priority)
+        """
         self.thompson = ThompsonSamplingSelector()
         self.n_cores = n_cores or max(1, mp.cpu_count() - 1)
+        self.mode = mode
         
     def estimate_lower_bound(self, distances: np.ndarray) -> float:
         """
@@ -212,7 +218,14 @@ class SuperSolver:
         start_time = time.time()
         
         # FAST PATH: Estrategia hibrida por tamano
-        if n <= 50:
+        # En modo academic, no usar fast-path (priorizar calidad)
+        use_fast_path = (
+            (n <= 50 and self.mode == 'fast') or
+            (n <= 40 and self.mode == 'balanced') or
+            (n <= 30 and self.mode == 'academic')
+        )
+        
+        if use_fast_path and n <= 50:
             # Para n<=50: gravity+2opt (ultra rapido, evita casos patologicos de LK)
             from pimst.algorithms import gravity_guided_tsp, two_opt_improvement
             
@@ -230,8 +243,8 @@ class SuperSolver:
             
             return tour.tolist(), cost, metadata
         
-        elif n <= 60:
-            # Para 50<n<=60: LK (mejor calidad, sigue siendo rapido)
+        elif n <= 60 and self.mode in ['fast', 'balanced']:
+            # Para threshold<n<=60: LK (solo en modo fast/balanced)
             from pimst.algorithms import lin_kernighan_lite
             
             tour = lin_kernighan_lite(coords, distances, max_iterations=10)

@@ -1,0 +1,212 @@
+"""
+Quantum V2 Solver - Versión mejorada con mejor balance
+=======================================================
+
+Mejoras sobre Quantum original:
+1. Usar multi_start como estrategia adicional (mejor base)
+2. Más refinamiento con LK (más tiempo en Fase 2)
+3. Perturbaciones especiales para instancias atascadas
+"""
+
+import numpy as np
+import time
+import hashlib
+from typing import Tuple, List
+from pimst.algorithms import (
+    gravity_guided_tsp,
+    lin_kernighan_lite,
+    multi_start_solver,
+    two_opt_improvement,
+    three_opt_improvement,
+    nearest_neighbor
+)
+
+
+class QuantumV2Solver:
+    """
+    Quantum Solver mejorado con mejores bases.
+    """
+    
+    def solve(
+        self,
+        coords: np.ndarray,
+        distances: np.ndarray,
+        time_budget: float = 10.0
+    ) -> Tuple[List[int], float, dict]:
+        """
+        Quantum con mejor balance calidad/exploración.
+        """
+        n = len(coords)
+        start_time = time.time()
+        
+        print(f"   🎯 QUANTUM V2: Balance óptimo")
+        print(f"   ⚡ Quantum (15%) + Multi-start + Refinamiento LK")
+        
+        solutions = []
+        unique_tours = set()
+        iteration = 0
+        
+        noise_level = 0.15
+        
+        # FASE 1: EXPLORACIÓN INTELIGENTE (60% tiempo)
+        phase1_end = start_time + time_budget * 0.6
+        
+        print(f"   Fase 1: Exploración inteligente...")
+        
+        while time.time() < phase1_end:
+            iteration += 1
+            quantum_seed = (int(time.time() * 1000000000) + iteration * 997) % (2**32)
+            np.random.seed(quantum_seed)
+            
+            # Ruido en distancias
+            noise_matrix = np.random.uniform(1 - noise_level, 1 + noise_level, distances.shape)
+            noisy_distances = distances * noise_matrix
+            noisy_distances = np.maximum(noisy_distances, 0.1)
+            
+            # ESTRATEGIA MEJORADA (incluye multi-start)
+            strategy = np.random.randint(0, 40)  # Más variedad
+            
+            if strategy < 8:
+                # Gravity con ruido
+                if np.random.random() > 0.5:
+                    coord_noise = np.random.normal(0, coords.std() * noise_level, coords.shape)
+                    noisy_coords = coords + coord_noise
+                    tour = gravity_guided_tsp(noisy_coords, noisy_distances)
+                else:
+                    tour = gravity_guided_tsp(coords, noisy_distances)
+                strategy_name = "gravity"
+                
+            elif strategy < 16:
+                # NN estocástico
+                start_node = np.random.randint(0, n)
+                tour = nearest_neighbor(coords, noisy_distances, start=start_node)
+                strategy_name = "nn"
+                
+            elif strategy < 20:
+                # Multi-start (NUEVO - muy bueno)
+                n_starts = np.random.choice([2, 3, 5])
+                tour = multi_start_solver(coords, noisy_distances, n_starts=n_starts)
+                strategy_name = f"multistart_{n_starts}"
+                
+            elif strategy < 24:
+                # LK con ruido (NUEVO)
+                tour = lin_kernighan_lite(coords, noisy_distances, max_iterations=100)
+                strategy_name = "lk_noisy"
+                
+            elif strategy < 28:
+                # Random + 3-opt
+                tour = np.random.permutation(n)
+                tour = three_opt_improvement(tour, noisy_distances, max_iter=3)
+                strategy_name = "random_3opt"
+                
+            else:
+                # Random puro con mutaciones
+                tour = np.random.permutation(n)
+                strategy_name = "random"
+            
+            # Mutaciones (cantidad aleatoria)
+            n_mutations = np.random.randint(5, 15)
+            
+            for _ in range(n_mutations):
+                mut = np.random.randint(0, 5)
+                if mut == 0:
+                    i, j = np.random.randint(0, n, 2)
+                    tour[i], tour[j] = tour[j], tour[i]
+                elif mut == 1:
+                    i, j = sorted(np.random.randint(0, n, 2))
+                    tour[i:j] = tour[i:j][::-1]
+                elif mut == 2:
+                    i, j = sorted(np.random.randint(0, n, 2))
+                    segment = tour[i:j].copy()
+                    np.random.shuffle(segment)
+                    tour[i:j] = segment
+                elif mut == 3:
+                    shift = np.random.randint(1, n)
+                    tour = np.roll(tour, shift)
+                else:
+                    i = np.random.randint(0, n)
+                    j = np.random.randint(0, n)
+                    node = tour[i]
+                    tour = np.delete(tour, i)
+                    tour = np.insert(tour, j, node)
+            
+            # Mejora local con probabilidad
+            if np.random.random() > 0.3:
+                tour, _ = two_opt_improvement(tour, distances)
+            
+            # Calcular costo REAL
+            cost = sum(distances[tour[i]][tour[(i+1)%n]] for i in range(n))
+            
+            # Hash para unicidad
+            tour_hash = hashlib.md5(tour.tobytes()).hexdigest()
+            
+            if tour_hash not in unique_tours:
+                solutions.append((cost, tour, strategy_name))
+                unique_tours.add(tour_hash)
+            
+            # Progress cada 100
+            if iteration % 100 == 0 and solutions:
+                best = min(solutions, key=lambda x: x[0])[0]
+                print(f"      → {iteration} iter, {len(solutions)} únicas, mejor: {best:.2f}")
+        
+        print(f"   ✅ {len(solutions)} soluciones únicas")
+        
+        if len(solutions) == 0:
+            tour = nearest_neighbor(coords, distances, start=0)
+            cost = sum(distances[tour[i]][tour[(i+1)%n]] for i in range(n))
+            solutions.append((cost, tour, "fallback"))
+        
+        # FASE 2: REFINAMIENTO AGRESIVO CON LK (40% tiempo)
+        print(f"   Fase 2: Refinamiento agresivo con LK...")
+        
+        solutions.sort(key=lambda x: x[0])
+        top_solutions = solutions[:40]  # Top-40 (antes 30)
+        
+        improved = []
+        for i, (cost, tour, name) in enumerate(top_solutions):
+            if time.time() - start_time > time_budget * 0.95:
+                break
+            
+            # LK con más iteraciones
+            if np.random.random() > 0.3:
+                # 70% LK potente
+                tour_lk = lin_kernighan_lite(coords, distances, max_iterations=500)
+            else:
+                # 30% 3-opt + LK
+                tour_temp = three_opt_improvement(tour, distances, max_iter=10)
+                tour_lk = lin_kernighan_lite(coords, distances, max_iterations=300)
+            
+            cost_lk = sum(distances[tour_lk[i]][tour_lk[(i+1)%n]] for i in range(n))
+            improved.append((cost_lk, tour_lk, f"lk_{name}"))
+            
+            if (i + 1) % 10 == 0:
+                best = min(improved, key=lambda x: x[0])[0]
+                print(f"      → {i+1}/{len(top_solutions)} refinados, mejor: {best:.2f}")
+        
+        # Combinar todas
+        all_solutions = solutions + improved
+        all_solutions.sort(key=lambda x: x[0])
+        
+        best_cost, best_tour, best_name = all_solutions[0]
+        
+        total_time = time.time() - start_time
+        
+        print(f"   ✅ FINAL: {best_cost:.2f} en {total_time:.2f}s")
+        print(f"   🏆 Ganador: {best_name}")
+        
+        metadata = {
+            'strategies_used': ['quantum_v2_improved'],
+            'total_solutions': len(all_solutions),
+            'unique_solutions': len(unique_tours),
+            'best_strategy': best_name,
+            'total_time': total_time
+        }
+        
+        return best_tour.tolist(), best_cost, metadata
+
+
+def quantum_v2_solve(coords, distances, time_budget=10.0):
+    """Función conveniente."""
+    solver = QuantumV2Solver()
+    tour, cost, _ = solver.solve(coords, distances, time_budget)
+    return tour, cost
