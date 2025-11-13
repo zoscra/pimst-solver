@@ -144,19 +144,24 @@ def compute_assignment_lower_bound(distances: np.ndarray) -> float:
     Returns:
         Lower bound (AP optimal cost)
     """
+    n = len(distances)
+
     try:
         from scipy.optimize import linear_sum_assignment
-        row_ind, col_ind = linear_sum_assignment(distances)
+
+        # Modify matrix to prevent self-assignment (diagonal should not be used)
+        modified = distances.copy()
+        np.fill_diagonal(modified, 1e10)
+
+        row_ind, col_ind = linear_sum_assignment(modified)
         ap_cost = distances[row_ind, col_ind].sum()
         return ap_cost
     except:
-        # Fallback: sum of minimum outgoing edges
-        n = len(distances)
+        # Fallback: sum of minimum outgoing edges (excluding self)
         lb = 0.0
         for i in range(n):
-            mask = np.ones(n, dtype=bool)
-            mask[i] = False
-            lb += np.min(distances[i][mask])
+            min_edge = np.min([distances[i][j] for j in range(n) if j != i])
+            lb += min_edge
         return lb
 
 
