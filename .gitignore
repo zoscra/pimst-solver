@@ -83,6 +83,17 @@ experiments/
 
 # External solvers (LKH, etc)
 external_solvers/
+LKH
+LKH-3
+LKH-3-source/
+LKH-*.tgz
+lkh
+lkh-3
+
+# MinGW and build tools
+mingw-w64/
+mingw-w64-*.zip
+mingw64/
 
 # Performance tracking
 performance_history.db
@@ -92,6 +103,8 @@ performance_by_size.png
 # Benchmark results (mantener solo archivos importantes)
 benchmark_results/session_*/
 comparison_results/
+atsp_complete_benchmark_*.json
+atsp_benchmark_report_*.md
 
 # Experiments
 experiments/
