@@ -245,8 +245,10 @@ def lin_kernighan_atsp(
     """
     Lin-Kernighan local search for ATSP.
 
-    Adaptive k-opt that tries 2-opt, 3-opt, and combinations.
-    Uses candidate lists for efficiency.
+    Uses correct ATSP operators:
+    - Node insertion
+    - Or-opt
+    - Variable neighborhood descent
 
     Args:
         dist_matrix: Asymmetric distance matrix
@@ -256,29 +258,53 @@ def lin_kernighan_atsp(
     Returns:
         Improved tour
     """
-    n = len(dist_matrix)
+    # Use improved local search from atsp_local_search module
+    try:
+        from .atsp_local_search import lin_kernighan_atsp_improved
+        # Convert max_iterations to time (rough estimate: 0.05s per iteration)
+        max_time = min(max_iterations * 0.05, 10.0)
+        return lin_kernighan_atsp_improved(dist_matrix, initial_tour, max_time)
+    except:
+        # Fallback to simple node insertion if module not available
+        n = len(dist_matrix)
 
-    # Initialize tour
-    if initial_tour is None:
-        tour = nearest_neighbor_atsp(dist_matrix, 0)
-    else:
-        tour = initial_tour.copy()
-
-    # Iterative improvement
-    for iteration in range(max_iterations):
-        # Try 2-opt
-        new_tour = two_opt_atsp(tour, dist_matrix, max_iterations=10)
-
-        new_length = calculate_atsp_tour_length(new_tour, dist_matrix)
-        old_length = calculate_atsp_tour_length(tour, dist_matrix)
-
-        if new_length < old_length:
-            tour = new_tour
+        if initial_tour is None:
+            tour = nearest_neighbor_atsp(dist_matrix, 0)
         else:
-            # No improvement, stop
-            break
+            tour = initial_tour.copy()
 
-    return tour
+        # Simple iterative improvement
+        for _ in range(min(max_iterations, 20)):
+            improved = False
+            current_length = calculate_atsp_tour_length(tour, dist_matrix)
+
+            # Try moving each node
+            for i in range(n):
+                for j in range(n):
+                    if i == j or (i+1)%n == j:
+                        continue
+
+                    # Try moving node i to position j
+                    new_tour = tour.copy()
+                    node = new_tour[i]
+                    new_tour = np.delete(new_tour, i)
+                    insert_pos = j if j < i else j-1
+                    new_tour = np.insert(new_tour, insert_pos, node)
+
+                    new_length = calculate_atsp_tour_length(new_tour, dist_matrix)
+                    if new_length < current_length:
+                        tour = new_tour
+                        current_length = new_length
+                        improved = True
+                        break
+
+                if improved:
+                    break
+
+            if not improved:
+                break
+
+        return tour
 
 
 def multi_start_atsp(
@@ -377,17 +403,23 @@ def solve_atsp_smart(
     n = len(dist_matrix)
 
     if n < 30:
-        # Small: just nearest neighbor
-        tour = nearest_neighbor_atsp(dist_matrix, 0)
+        # Small: FI + LK (always use local search)
+        if quality == 'fast':
+            tour = nearest_neighbor_atsp(dist_matrix, 0)
+            tour = lin_kernighan_atsp(dist_matrix, tour, max_iterations=20)
+        else:
+            tour = farthest_insertion_atsp(dist_matrix, 0)
+            tour = lin_kernighan_atsp(dist_matrix, tour, max_iterations=100)
         length = calculate_atsp_tour_length(tour, dist_matrix)
 
     elif n < 60:
         # Medium: single run with good heuristic
         if quality == 'fast':
-            tour = nearest_neighbor_atsp(dist_matrix, 0)
-        else:
             tour = farthest_insertion_atsp(dist_matrix, 0)
             tour = lin_kernighan_atsp(dist_matrix, tour, max_iterations=50)
+        else:
+            tour = farthest_insertion_atsp(dist_matrix, 0)
+            tour = lin_kernighan_atsp(dist_matrix, tour, max_iterations=150)
         length = calculate_atsp_tour_length(tour, dist_matrix)
 
     elif n < 100:
