@@ -48,7 +48,7 @@ def reverse_segment(tour, i, j):
 
 
 @njit
-def three_opt_atsp(tour, dist_matrix, max_iterations=100, time_limit=30.0):
+def three_opt_atsp(tour, dist_matrix, max_iterations=100):
     """
     3-opt local search for ATSP.
 
@@ -65,8 +65,6 @@ def three_opt_atsp(tour, dist_matrix, max_iterations=100, time_limit=30.0):
         Asymmetric distance matrix
     max_iterations : int
         Maximum number of iterations
-    time_limit : float
-        Maximum time in seconds
 
     Returns
     -------
@@ -78,15 +76,11 @@ def three_opt_atsp(tour, dist_matrix, max_iterations=100, time_limit=30.0):
     n = len(tour)
     tour = tour.copy()
 
-    start_time = time.time()
     total_improvement = 0.0
     iterations = 0
     improved = True
 
     while improved and iterations < max_iterations:
-        if time.time() - start_time > time_limit:
-            break
-
         improved = False
         iterations += 1
 
@@ -188,7 +182,7 @@ def three_opt_atsp(tour, dist_matrix, max_iterations=100, time_limit=30.0):
 
 
 @njit
-def three_opt_first_improvement(tour, dist_matrix, max_time=10.0):
+def three_opt_first_improvement(tour, dist_matrix, max_iterations=50):
     """
     3-opt with first improvement strategy (faster).
 
@@ -198,15 +192,13 @@ def three_opt_first_improvement(tour, dist_matrix, max_time=10.0):
     n = len(tour)
     tour = tour.copy()
 
-    start_time = time.time()
     total_improvement = 0.0
     improved = True
+    iterations = 0
 
-    while improved:
-        if time.time() - start_time > max_time:
-            break
-
+    while improved and iterations < max_iterations:
         improved = False
+        iterations += 1
 
         # Try all possible 3-edge breaks, accept first improvement
         for i in range(n - 5):
@@ -266,14 +258,14 @@ def three_opt_first_improvement(tour, dist_matrix, max_time=10.0):
 
 
 @njit
-def four_opt_limited_atsp(tour, dist_matrix, max_time=20.0, max_checks=1000):
+def four_opt_limited_atsp(tour, dist_matrix, max_checks=1000):
     """
     Limited 4-opt for ATSP.
 
     4-opt is very expensive (O(n^4)), so we limit it to:
     - Only most promising quartets of edges
     - Only a subset of reconnection options
-    - Time limit to prevent excessive computation
+    - Maximum number of checks to prevent excessive computation
 
     This provides additional improvement beyond 3-opt without being too slow.
 
@@ -283,8 +275,6 @@ def four_opt_limited_atsp(tour, dist_matrix, max_time=20.0, max_checks=1000):
         Current tour
     dist_matrix : array
         Asymmetric distance matrix
-    max_time : float
-        Maximum time in seconds
     max_checks : int
         Maximum number of 4-edge combinations to check
 
@@ -300,36 +290,32 @@ def four_opt_limited_atsp(tour, dist_matrix, max_time=20.0, max_checks=1000):
         return tour, 0.0
 
     tour = tour.copy()
-    start_time = time.time()
     total_improvement = 0.0
     improved = True
     checks = 0
 
     while improved and checks < max_checks:
-        if time.time() - start_time > max_time:
-            break
-
         improved = False
 
         # Sample edges with high cost (more likely to benefit from 4-opt)
         # For efficiency, we'll just do systematic search with early termination
 
         for i in range(n - 7):
-            if time.time() - start_time > max_time or checks >= max_checks:
+            if checks >= max_checks:
                 break
 
             for j in range(i + 2, min(i + n // 2, n - 5)):
-                if time.time() - start_time > max_time or checks >= max_checks:
+                if checks >= max_checks:
                     break
 
                 for k in range(j + 2, min(j + n // 3, n - 3)):
-                    if time.time() - start_time > max_time or checks >= max_checks:
+                    if checks >= max_checks:
                         break
 
                     for m in range(k + 2, min(k + n // 4, n - 1)):
                         checks += 1
 
-                        if time.time() - start_time > max_time or checks >= max_checks:
+                        if checks >= max_checks:
                             break
 
                         # Current edges
@@ -364,7 +350,7 @@ def four_opt_limited_atsp(tour, dist_matrix, max_time=20.0, max_checks=1000):
 
 
 @njit
-def ejection_chain_atsp(tour, dist_matrix, chain_length=3, max_time=15.0):
+def ejection_chain_atsp(tour, dist_matrix, chain_length=3, max_iterations=50):
     """
     Ejection chain for ATSP.
 
@@ -381,8 +367,8 @@ def ejection_chain_atsp(tour, dist_matrix, chain_length=3, max_time=15.0):
         Asymmetric distance matrix
     chain_length : int
         Length of chain to eject (typically 2-4)
-    max_time : float
-        Maximum time in seconds
+    max_iterations : int
+        Maximum number of iterations
 
     Returns
     -------
@@ -396,20 +382,16 @@ def ejection_chain_atsp(tour, dist_matrix, chain_length=3, max_time=15.0):
         return tour, 0.0
 
     tour = tour.copy()
-    start_time = time.time()
     total_improvement = 0.0
     improved = True
+    iterations = 0
 
-    while improved:
-        if time.time() - start_time > max_time:
-            break
-
+    while improved and iterations < max_iterations:
         improved = False
+        iterations += 1
 
         # Try ejecting chains of length chain_length
         for start_pos in range(n):
-            if time.time() - start_time > max_time:
-                break
 
             # Extract chain
             chain = []
@@ -466,7 +448,7 @@ def optimize_tour_advanced(tour, dist_matrix, time_limit=60.0):
     dist_matrix : array
         Asymmetric distance matrix
     time_limit : float
-        Total time budget for optimization
+        Total time budget for optimization (converted to iterations)
 
     Returns
     -------
@@ -479,42 +461,47 @@ def optimize_tour_advanced(tour, dist_matrix, time_limit=60.0):
     initial_cost = calculate_tour_cost_numba(tour, dist_matrix)
 
     tour = tour.copy()
+    n = len(tour)
 
-    # Allocate time budget
-    time_3opt = time_limit * 0.5
-    time_3opt_fi = time_limit * 0.3
-    time_4opt = time_limit * 0.15
-    time_ejection = time_limit * 0.05
+    # Convert time budget to iteration budgets based on problem size
+    # Larger problems need fewer iterations due to O(n^3) complexity
+    if n <= 30:
+        iter_3opt = 100
+        iter_3opt_fi = 50
+        iter_4opt_checks = 1000
+        iter_ejection = 50
+    elif n <= 50:
+        iter_3opt = 50
+        iter_3opt_fi = 30
+        iter_4opt_checks = 500
+        iter_ejection = 30
+    else:
+        iter_3opt = 30
+        iter_3opt_fi = 20
+        iter_4opt_checks = 300
+        iter_ejection = 20
 
     # Apply operators in sequence
     improvements = {}
 
     # 1. 3-opt (best improvement)
     if time.time() - start_time < time_limit:
-        remaining = time_limit - (time.time() - start_time)
-        t = min(time_3opt, remaining)
-        tour, imp = three_opt_atsp(tour, dist_matrix, max_iterations=50, time_limit=t)
+        tour, imp = three_opt_atsp(tour, dist_matrix, max_iterations=iter_3opt)
         improvements['3-opt'] = imp
 
     # 2. 3-opt (first improvement, faster)
     if time.time() - start_time < time_limit:
-        remaining = time_limit - (time.time() - start_time)
-        t = min(time_3opt_fi, remaining)
-        tour, imp = three_opt_first_improvement(tour, dist_matrix, max_time=t)
+        tour, imp = three_opt_first_improvement(tour, dist_matrix, max_iterations=iter_3opt_fi)
         improvements['3-opt-fi'] = imp
 
     # 3. Limited 4-opt
     if time.time() - start_time < time_limit:
-        remaining = time_limit - (time.time() - start_time)
-        t = min(time_4opt, remaining)
-        tour, imp = four_opt_limited_atsp(tour, dist_matrix, max_time=t, max_checks=500)
+        tour, imp = four_opt_limited_atsp(tour, dist_matrix, max_checks=iter_4opt_checks)
         improvements['4-opt'] = imp
 
     # 4. Ejection chains
     if time.time() - start_time < time_limit:
-        remaining = time_limit - (time.time() - start_time)
-        t = min(time_ejection, remaining)
-        tour, imp = ejection_chain_atsp(tour, dist_matrix, chain_length=3, max_time=t)
+        tour, imp = ejection_chain_atsp(tour, dist_matrix, chain_length=3, max_iterations=iter_ejection)
         improvements['ejection'] = imp
 
     final_cost = calculate_tour_cost_numba(tour, dist_matrix)
@@ -524,7 +511,7 @@ def optimize_tour_advanced(tour, dist_matrix, time_limit=60.0):
         'initial_cost': initial_cost,
         'final_cost': final_cost,
         'total_improvement': initial_cost - final_cost,
-        'improvement_percent': (initial_cost - final_cost) / initial_cost * 100,
+        'improvement_percent': (initial_cost - final_cost) / initial_cost * 100 if initial_cost > 0 else 0,
         'time': total_time,
         'improvements_by_operator': improvements
     }
